@@ -3,8 +3,13 @@ package com.keking.java8;
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,6 +25,23 @@ public class NewDateTest {
 
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Test
     public void testParse() {
@@ -43,6 +65,26 @@ public class NewDateTest {
                 }
             });
         }
+    }
+
+
+
+
+
+    @Test
+    public void test2(){
+
+        LocalDate localdate = LocalDate.now();
+        System.out.println(localdate);
+        LocalTime localTime = LocalTime.now();
+        System.out.println(localTime);
+        LocalDateTime localDateTime = LocalDateTime.of(localdate, localTime);
+        //获取这个月的最后一天
+        localDateTime.with(TemporalAdjusters.lastDayOfMonth());
+
+        System.out.println(localDateTime.with(TemporalAdjusters.firstDayOfMonth()));
+
+
     }
 
 }

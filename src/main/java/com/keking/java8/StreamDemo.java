@@ -23,6 +23,7 @@ public class StreamDemo {
                 new Dish("season fruit", true, 120, Dish.Type.OTHER),
                 new Dish("pizza", true, 550, Dish.Type.OTHER),
                 new Dish("blackfish", false, 300, Dish.Type.FISH),
+                new Dish("salmon", false, 300, Dish.Type.FISH),
                 new Dish("salmon", false, 300, Dish.Type.FISH));
     }
 
@@ -40,12 +41,13 @@ public class StreamDemo {
         Stream<String> stream3 = Stream.of("aa", "bb", "cc");
         //创建无限流
         Stream<Integer> iterate = Stream.iterate(0, (x) -> x + 2);
+       // iterate.forEach(System.out::println);
         iterate.limit(10).forEach(System.out::println);
 
         //通过Stream的generate方式,也是无限流
 
-        Stream<Double> generate = Stream.generate(Math::random);
-        generate.limit(10).forEach(System.out::println);
+//        Stream<Double> generate = Stream.generate(Math::random);
+//        generate.limit(10).forEach(System.out::println);
 
     }
 
@@ -60,6 +62,13 @@ public class StreamDemo {
     public void test2() {
         //过滤不是蔬菜的
         menu.stream().filter(Dish::isVegetarian);
+
+        /**
+         * menu.stream().filter(dish->{
+         *             System.out.println(11);
+         *             return dish.isVegetarian();
+         *         });
+         */
         //去重,根据hashcode和equals方法进行去重
         menu.stream().distinct();
 
@@ -162,13 +171,44 @@ public class StreamDemo {
         int sum = menu.stream().map(Dish::getCalories).collect(Collectors.summingInt(c->c));
         System.out.println(sum);
 
-        //卡路里最小值
+        //卡路里最大值
         System.out.println("-------------------------------");
         Optional<Integer> collect1 = menu.stream().map(Dish::getCalories).collect(Collectors.maxBy(Integer::compare));
         System.out.println(collect1.get());
 
-        // 根据菜是否是蔬菜进行分组
-        Map<Boolean, List<Dish>> collect2 = menu.stream().collect(Collectors.groupingBy(Dish::isVegetarian));
+        System.out.println("-------------------------------");
+        //多个字符串进行join
+        List<String> list = Arrays.asList("aa", "nb", "cc", "dd");
+        String join = String.join(",", list);
+       //获取所有的菜名
+        String collect3 = menu.stream().map(Dish::getName).collect(Collectors.joining("#", "--", ";;"));
+        System.out.println(collect3);
+
+
+        //根据菜的卡路里值进行分组
+        Map<String,List<Dish>> stringListMap=menu.stream().collect(Collectors.groupingBy((Dish dish)->{
+             if(dish.getCalories()>500){
+                 return "high";
+             }
+             else{
+                 return "low";
+                    }
+                }));
+        System.out.println("-------------------------------");
+        System.out.println(stringListMap);
+
+        // 根据菜是否是蔬菜进行partitioningBy 分区
+        Map<Boolean, List<Dish>> collect2 = menu.stream().collect(Collectors.partitioningBy(Dish::isVegetarian));
+        System.out.println("-------------------------------");
+        System.out.println(collect2);
+
+
+
+        //collectingAndThen
+        Integer integer = menu.stream().map(Dish::getCalories).collect(Collectors.collectingAndThen(Collectors.toList(), List::size));
+
+
+
     }
 
 

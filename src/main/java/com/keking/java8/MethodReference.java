@@ -3,6 +3,7 @@ package com.keking.java8;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.*;
 
 public class MethodReference {
 
@@ -11,7 +12,26 @@ public class MethodReference {
 
         List<Apple> apples = Arrays.asList(new Apple("red", 15), new Apple("green", 18), new Apple("red", 45));
 
-      //  apples.sort((a1,a2)->a1.getColor().compareTo(a2.getColor()));
+        //指向静态方法的方法引用(例如Integer.parseInt方法,可以写作Integer::parseInt)
+
+        Function<String,Integer> stringIntegerFunction=(s)->Integer.parseInt(s);
+
+        BinaryOperator<Double>   doubleBinaryOperator=(d1,d2)->Math.pow(d1, d2);
+         //指向任意类型实例方法的方法引用(例如String 的length 方法， 写作String::length)
+
+        BiConsumer<String,String> stringStringBiConsumer=(s1,s2)->s1.equalsIgnoreCase(s2);
+
+        //指向现有对象的实例方法的方法引用
+         //假设你有一个局部变量a 用来存放 A类型的对象,它有个示例方法getValue,那么就可以写成a::getValue)
+        Apple red = new Apple("red", 15);
+        Supplier<String> appleStringFunction=()->red.getColor();
+
+         //构造器引用
+
+        Supplier<Apple> appleSupplier=()->new Apple();
+
+
+        //  apples.sort((a1,a2)->a1.getColor().compareTo(a2.getColor()));
 //
        apples.sort(Comparator.comparing(Apple::getColor));
 

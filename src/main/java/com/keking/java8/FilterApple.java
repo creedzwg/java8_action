@@ -11,16 +11,29 @@ public class FilterApple {
     public static void main(String[] args) throws InterruptedException {
 
         List<Apple> apples = Arrays.asList(new Apple("red", 15), new Apple("green", 18), new Apple("red", 45));
+
+
         List<Apple> apples1 = findGreenApple(apples);
+
+
+
+
+
+
+
+
+
+
+
         List<Apple>  apples2 = findGreenAndWeightApple(apples);
 
 
         filterApple(apples,new GreenAppleFilter());
 
         List<Apple> greenApple = filterApple(apples, a ->"green".equals(a.getColor()));
-        greenApple.sort((a1,a2)->a1.getColor().compareTo(a2.getColor()));
+        //greenApple.sort((a1,a2)->a1.getColor().compareTo(a2.getColor()));
 
-        greenApple.sort(Comparator.comparing(Apple::getColor));
+        //greenApple.sort(Comparator.comparing(Apple::getColor));
 
 //        new  Thread(()->{
 //
