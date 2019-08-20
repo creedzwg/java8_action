@@ -22,7 +22,9 @@ public class SimpleStream {
                 new Dish("rice", true, 350, Dish.Type.OTHER),
                 new Dish("season fruit", true, 120, Dish.Type.OTHER),
                 new Dish("pizza", true, 550, Dish.Type.OTHER),
+                //对虾
                 new Dish("prawns", false, 300, Dish.Type.FISH),
+                //三文鱼
                 new Dish("salmon", false, 450, Dish.Type.FISH));
 
   /*      Stream<Dish> stream = menu.stream();
@@ -54,8 +56,13 @@ public class SimpleStream {
         System.out.println(dishNamesByCollections);*/
 //      /*  List<String> dishNamesByStreams = getDishNamesByStream(menu);
 //        System.out.println(dishNamesByStreams);*/
-        //List<String> dishNamesByStreams = getDishNamesByStream(menu);
+
+       // List<String> dishNamesByStreams = getDishNamesByStream(menu);
+
+
         List<String> dishNamesByStreams = getDishNamesByparallelStream(menu);
+
+
     }
 
     private static List<String> getDishNamesByStream(List<Dish> menu) {

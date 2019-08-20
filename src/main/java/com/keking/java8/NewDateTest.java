@@ -54,11 +54,12 @@ public class NewDateTest {
                 "2019-07-05 14:00:05"
         );
        // SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+       DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         for (String str : dateStrList) {
             executorService.execute(() -> {
                 try {
                     dateTimeFormatter.parse(str);
+//                    simpleDateFormat.parse(str);
                     TimeUnit.SECONDS.sleep(1);
                 } catch (Exception e) {
                     e.printStackTrace();
